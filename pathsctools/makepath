@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+ERRRED="\033[1;31m"
+ENDL="\033[0m"
+aliasfile=$HOME/.path_aliases
+if [[ $# < 2 ]]; then
+	echo -e "${ERRRED}ERROR! TOO FEW ARGUEMENTS${ENDL}">&2
+	exit 1
+fi
+if [[ $# > 2 ]]; then
+	echo -e "${ERRRED}ERROR! TOO MANY ARGUEMENTS${ENDL}">&2
+	exit 1
+fi
+
+name=$1
+scpath=$2
+read -p "Are you sure $name should lead to $scpath (Y/n)" choice
+while  [[ ${choice^^} != 'Y' && ${choice^^} != 'N' ]]; do
+	read choice
+done
+if [[ ${choice^^} == 'N' ]] ; then
+	exit 0
+fi
+
+if command -v "$name" >/dev/null 2>&1; then
+	echo -e "${ERRRED}ERROR! $name is a command${ENDL}">&2
+	exit 1
+else
+	if grep -q "^alias $name=" $aliasfile $HOME/.bashrc $HOME/.bash_aliases; then
+		echo -e "${ERRRED}ERROR! Alias already exists${ENDL}">&2
+		exit 1
+	fi
+	echo alias $name=\"cd \"$scpath\"\" >> $aliasfile
+	source $aliasfile
+fi
+exit
+

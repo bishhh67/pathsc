@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+if (( $# != 0 )); then
+	echo -e "\033[1;31mERROR! Too many Arguements!\033[0m" >&2
+	exit 1
+fi
+allaliases=$(grep . "$HOME/.path_aliases")
+IFS=$'\n'
+for onealias in $allaliases; do
+	word1=$(cut -d "=" -f 1 <<< $onealias )
+	word2=$(cut -d "=" -f 2 <<< $onealias )
+	echo ${word1:6} ==\>\> ${word2:5:(-2)}
+		
+done
+unset IFS
+exit 0
+

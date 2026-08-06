@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+ERRRED="\033[1;31m"
+ENDL="\033[0m"
+
+if [[ $# >1 ]]; then
+	echo -e "${ERRRED}ERROR! TOO MANY ARGUEMENTS${ENDL}">&2
+	exit 1
+elif [[ $# < 1  ]]; then
+	echo -e "${ERRRED}ERROR! TOO FEW ARGUEMENTS${ENDL}" >&2
+	exit 1
+fi
+
+aliasfile=$HOME/.path_aliases
+tempfile=$HOME/.tempaliaspath
+
+lines=$(grep "alias"* $aliasfile)
+[[ $? != 0 ]] && exit 1
+
+
+/usr/local/bin/pathsctools/checkpath $1
+[[ $? != 0 ]] && exit 1
+
+touch $tempfile
+[[ $? != 0 ]] && exit 1
+
+IFS=$'\n'
+for line in $lines; do
+	if [[ $line == "alias $1="*  ]]; then
+		# Eat 5 Star do nothing
+		# echo "alias $1=\"cd \"$newpath\"\"">>$tempfile
+		true
+	else	
+		echo $line >> $tempfile	
+	fi
+done
+unset IFS
+cat $tempfile>$aliasfile
+[[ $? != 0 ]] && exit 1
+
+rm $tempfile
+
+exit 0
+ 

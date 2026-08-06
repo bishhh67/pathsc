@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#router file 
+
+TOOLS_DIR="/usr/local/bin/pathsctools"
+case $1 in 
+	'-c')
+	$TOOLS_DIR/checkpath ${@:2}
+	exit $?
+	;;
+	'-n')
+	$TOOLS_DIR/makepath ${@:2}
+	exit $?
+	;;
+	'-s')
+	$TOOLS_DIR/showpath ${@:2}
+	exit $?
+	;;
+	'-r')
+	$TOOLS_DIR/renamepath ${@:2}
+	exit $?
+	;;
+	'-R')
+	$TOOLS_DIR/removepath ${@:2}
+	exit $?
+	;;
+	'-l')
+	$TOOLS_DIR/listpath ${@:2}
+	exit $?
+	;;
+	'--help')
+	echo -e $(cat $TOOLS_DIR/helptext)  
+	exit $?
+	;;
+	*)
+	echo -e "Error! Invalid argument\nPlease use \"pathsc --help\" for help">&2
+	exit 1
+	;;
+esac
