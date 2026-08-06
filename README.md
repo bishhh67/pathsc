@@ -5,9 +5,6 @@
 
 `pathsc` is a bash mini-project that makes working with shell shortcuts fast and frictionless. Instead of manually editing your `.bashrc`, you can create, check, show, replace, and remove shortcuts straight from the terminal.
 
-~~The feature list is still expanding~~ Its completed (yaay) and yes, it's purposefully made less versatile than it could be.
-
-This project was also a means for me to learn VIM.
 ---
 
 ## Usage
@@ -65,11 +62,3 @@ pathsc -l
 ```
 
 
----
-
-## Notes
-
-- Developed and maintained by **path**
-- Intentionally minimal by design
-- ~~More flags and features coming soon~~
-- This is considered completed for now
