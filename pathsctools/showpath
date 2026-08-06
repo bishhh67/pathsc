@@ -13,10 +13,10 @@ fi
 if [[ $? == 0 ]]; then
 	lines=$(grep "alias $1=" $HOME/.path_aliases)
 	tosearch="alias $1=\"cd \""
-	lenlines=${#tosearch}
+	lenlines=${#tosearch}     
 	temp=${lines:$lenlines}
-	echo ${temp::(-2)}
-	# echo ${lines}
+	echo ${temp::(-1)}
+
 else 
 	exit 1
 fi
